@@ -63,6 +63,7 @@
 ;;(setq initial-buffer-choice "~/Org/todo.org")
 (setq-default evil-escape-key-sequence "df")
 
+(require 'mu4e)
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
 ;;(require 'smtpmail)
 (setq user-mail-address "ftodeschini@gmail.com"
@@ -158,16 +159,16 @@
 
 
 ;; exwm
-(require 'exwm)
-(require 'exwm-config)
-(setq exwm-input-global-keys
-      `(([?\s-r] . exwm-reset)
-        ([?\s-w] . exwm-workspace-switch)
-        ,@(mapcar (lambda (i)
-                    `(,(kbd (format "s-%d" i)) .
-                      (lambda ()
-                        (interactive)
-                        (exwm-workspace-switch-create ,i))))
-                  (number-sequence 0 9))))
-(setq exwm-workspace-number 4)
-(require 'exwm-systemtray)
+;;(require 'exwm)
+;;(require 'exwm-config)
+;;(setq exwm-input-global-keys
+      ;;`(([?\s-r] . exwm-reset)
+        ;;([?\s-w] . exwm-workspace-switch)
+        ;;,@(mapcar (lambda (i)
+          ;;          `(,(kbd (format "s-%d" i)) .
+            ;;          (lambda ()
+              ;;          (interactive)
+                ;;        (exwm-workspace-switch-create ,i))))
+;;                  (number-sequence 0 9))))
+;;(setq exwm-workspace-number 4)
+;;(require 'exwm-systemtray)
