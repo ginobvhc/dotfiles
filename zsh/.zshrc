@@ -78,8 +78,12 @@ SAVEHIST=10000
 
 # Keys.
 # Use emacs key bindings
-bindkey -e
+# bindkey -e
 
+# Keys.
+# Use emacs key bindings
+bindkey -v
+ 
 # [PageUp] - Up a line of history
 if [[ -n "${terminfo[kpp]}" ]]; then
   bindkey -M emacs "${terminfo[kpp]}" up-line-or-history
@@ -185,8 +189,6 @@ echo $(lsb_release -is) $(uname -srm)
 # Alias FT
 
 ## Copy to pendrive
-alias bk_dot="cp .zshrc /home/ginobvhc/Sync/dotfiles/zsh/"
-alias bk_em="cp -r .doom.d/ /home/ginobvhc/Sync/dotfiles/emacs/"
 
 alias mail_check="mbsync -Va && mu index"
 alias mail_index="mu index"
