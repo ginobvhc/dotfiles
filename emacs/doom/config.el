@@ -172,3 +172,7 @@
 ;;                  (number-sequence 0 9))))
 ;;(setq exwm-workspace-number 4)
 ;;(require 'exwm-systemtray)
+
+;; Autocomplete
+(setq company-idle-delay 0.2
+      company-minimum-prefix-length 3)
