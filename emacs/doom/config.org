@@ -21,6 +21,7 @@
 - [[#autocompletion][autocompletion]]
 - [[#lsp][lsp]]
 - [[#patches][Patches]]
+- [[#registers][REGISTERS]]
 
 * BOOKMARKS AND BUFFERS
 Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.  Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.
@@ -338,5 +339,56 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 (after! evil-org
   (evil-define-key '(normal visual) evil-org-mode-map
     (kbd "TAB") 'org-cycle))
-
 #+end_src
+* REGISTERS
+Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.  The default GNU Emacs keybindings for these commands (with the exception of counsel-register) involves 'C-x r' followed by one or more other keys.  I wanted to make this a little more user friendly, and since I am using Doom Emacs, I choose to replace the 'C-x r' part of the key chords with 'SPC r'.
+
+| COMMAND                          | DESCRIPTION                      | KEYBINDING |
+|----------------------------------+----------------------------------+------------|
+| copy-to-register                 | /Copy to register/                 | SPC r c    |
+| frameset-to-register             | /Frameset to register/             | SPC r f    |
+| insert-register                  | /Insert contents of register/      | SPC r i    |
+| jump-to-register                 | /Jump to register/                 | SPC r j    |
+| list-registers                   | /List registers/                   | SPC r l    |
+| number-to-register               | /Number to register/               | SPC r n    |
+| counsel-register                 | /Interactively choose a register/  | SPC r r    |
+| view-register                    | /View a register/                  | SPC r v    |
+| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
+| increment-register               | /Increment register/               | SPC r +    |
+| point-to-register                | /Point to register/                | SPC r SPC  |
+
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      :desc "Copy to register"
+      "r c" #'copy-to-register
+      :leader
+      :desc "Frameset to register"
+      "r f" #'frameset-to-register
+      :leader
+      :desc "Insert contents of register"
+      "r i" #'insert-register
+      :leader
+      :desc "Jump to register"
+      "r j" #'jump-to-register
+      :leader
+      :desc "List registers"
+      "r l" #'list-registers
+      :leader
+      :desc "Number to register"
+      "r n" #'number-to-register
+      :leader
+      :desc "Interactively choose a register"
+      "r r" #'counsel-register
+      :leader
+      :desc "View a register"
+      "r v" #'view-register
+      :leader
+      :desc "Window configuration to register"
+      "r w" #'window-configuration-to-register
+      :leader
+      :desc "Increment register"
+      "r +" #'increment-register
+      :leader
+      :desc "Point to register"
+      "r SPC" #'point-to-register)
+#+END_SRC
