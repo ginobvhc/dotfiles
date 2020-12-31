@@ -11,8 +11,10 @@
 - [[#personal-data][Personal data]]
 - [[#doom-theme][Doom theme]]
 - [[#relative-numbers][Relative numbers]]
+- [[#rss][RSS]]
 - [[#orgs-files][Orgs files]]
 - [[#pr-files][Pr Files]]
+- [[#shells][shells]]
 - [[#default-browser][Default Browser]]
 - [[#scape-secuence][Scape secuence]]
 - [[#mu4e][Mu4e]]
@@ -118,8 +120,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
-(setq user-full-name "Fabricio Todeschini"
-      user-mail-address "ginobvhc@gmail.com")
+(setq user-full-name "FT")
 #+end_src
 * Doom theme
 #+begin_src emacs-lisp
@@ -149,6 +150,29 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
 #+end_src
+* RSS
+RSS reader
+#+begin_src emacs-lisp
+(custom-set-variables
+ '(elfeed-feeds
+   (quote
+    (("https://www.reddit.com/r/linux.rss" reddit linux)
+     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
+     ("https://hackaday.com/blog/feed/" hackaday linux)
+     ("https://opensource.com/feed" opensource linux)
+     ("https://linux.softpedia.com/backend.xml" softpedia linux)
+     ("https://itsfoss.com/feed/" itsfoss linux)
+     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
+     ("https://www.phoronix.com/rss.php" phoronix linux)
+     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
+     ("https://www.computerworld.com/index.rss" computerworld linux)
+     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
+     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
+     ("https://betanews.com/feed" betanews linux)
+     ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
+     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
+#+end_src
+
 * Orgs files
 #+begin_src emacs-lisp
 
@@ -162,6 +186,29 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 
 (setq projectile-project-search-path '("/home/ginobvhc/programacion/01-projects/" "/home/ginobvhc/Sync/Org/"))
 #+end_src
+* shells
+Settings for the various shells and terminal emulators within Emacs.
+
+- ‘shell-file-name’ – sets the shell to be used in M-x shell, M-x term, M-x ansi-term and M-x vterm.
+- ‘eshell-aliases-file’ – sets an aliases file for the eshell.
+
+#+begin_src emacs-lisp
+
+(setq shell-file-name "/bin/zsh"
+      eshell-aliases-file "~/.doom.d/aliases"
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh")
+      vterm-max-scrollback 5000)
+(map! :leader
+      :desc "Counsel eshell history"
+      "e h" #'counsel-esh-history)
+
+#+end_src
+
 
 * Default Browser
 #+begin_src emacs-lisp

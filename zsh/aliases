@@ -1,0 +1,44 @@
+# Add useful aliases
+alias ls="exa -al --color=always --group-directories-first"
+alias ff="find-file $1"
+alias doomsync="~/.emacs.d/bin/doom sync"
+alias doomdoctor="~/.emacs.d/bin/doom doctor"
+alias doomupgrade"~/.emacs.d/bin/doom upgrade"
+alias doompurge="~/.emacs.d/bin/doom purge"
+alias aup="pamac upgrade --aur"
+alias grubup="sudo update-grub"
+alias orphaned="sudo pacman -Rns $(pacman -Qtdq)"
+alias fixpacman="sudo rm /var/lib/pacman/db.lck"
+alias untar='tar -zxvf '
+alias wget='wget -c '
+alias speed='speedtest-cli --server 2406 --simple'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias path='echo -e ${PATH//:/\\n}'
+# Set your countries like --country France --country Germany -- or more.
+alias upd='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && cat /etc/pacman.d/mirrorlist && sudo pacman -Syu'
+
+echo $(lsb_release -is) $(uname -srm)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+
+# Alias FT
+
+## Copy to pendrive
+
+alias mail_check="mbsync -Va && mu index"
+alias mail_index="mu index"
+alias mail_clean="rm /home/ginobvhc/Maildir/trash/cur/*"
+
+alias zshrc="tail .zshrc"

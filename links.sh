@@ -8,3 +8,5 @@ ln -sf ~/dotfiles/emacs/doom/init.el ~/.doom.d/init.el
 
 ln -sf ~/dotfiles/mu4e/.mbsync ~/.config/mu4e/.mbsync
 ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
+
+ln -sf ~/dotfiles/zsh/aliases ~/.doom.d/aliases
