@@ -5,27 +5,136 @@
 
 
 * TOC :toc:
-- [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
-- [[#centaur-tabs][CENTAUR-TABS]]
-- [[#dired][DIRED]]
+- [[#doom-intro][DOOM intro]]
+- [[#look-and-feel][LOOK AND FEEL]]
+  - [[#relative-numbers][Relative Numbers]]
+  - [[#doom-theme][Doom theme]]
+  - [[#registers][REGISTERS]]
+  - [[#scape-secuence][Scape secuence]]
+- [[#shortcuts][SHORTCUTS]]
+  - [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
+  - [[#centaur-tabs][CENTAUR-TABS]]
+  - [[#dired][DIRED]]
 - [[#personal-data][Personal data]]
-- [[#doom-theme][Doom theme]]
-- [[#relative-numbers][Relative numbers]]
-- [[#rss][RSS]]
-- [[#orgs-files][Orgs files]]
-- [[#pr-files][Pr Files]]
+- [[#org][ORG]]
 - [[#shells][shells]]
-- [[#default-browser][Default Browser]]
-- [[#scape-secuence][Scape secuence]]
-- [[#mu4e][Mu4e]]
-- [[#exwm][exwm]]
+- [[#default-app][Default APP]]
+  - [[#browser][Browser]]
+- [[#mail-n-feed][Mail N' Feed]]
+  - [[#mu4e][Mu4e]]
+  - [[#rss][RSS]]
 - [[#autocomplete][Autocomplete]]
-- [[#autocompletion][autocompletion]]
 - [[#lsp][lsp]]
 - [[#patches][Patches]]
-- [[#registers][REGISTERS]]
 
-* BOOKMARKS AND BUFFERS
+* DOOM intro
+Here are some additional functions/macros that could help you configure Doom:
+
+ - `load!' for loading external *.el files relative to this one
+ - `use-package!' for configuring packages
+ - `after!' for running code after a package has loaded
+ - `add-load-path!' for adding directories to the `load-path', relative to
+   this file. Emacs searches the `load-path' when you load packages with
+   `require' or `use-package'.
+ - `map!' for binding new keys
+
+ To get information about any of these functions/macros, move the cursor over
+ the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+ This will open documentation for it, including demos of how they are used.
+
+You can also try 'gd' (or 'C-c c d') to jump to their definition and see how they are implemented.
+
+
+
+* LOOK AND FEEL
+** Relative Numbers
+#+Begin_src Emacs-Lisp
+
+;; This Determines The Style Of Line Numbers In Effect. If Set To `Nil', Line
+;; Numbers Are Disabled. For Relative Line Numbers, Set This To `Relative'.
+(Setq Display-Line-Numbers-Type `Relative)
+#+End_src
+** Doom theme
+#+begin_src emacs-lisp
+
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
+;; are the three important ones:
+;;
+;; + `doom-font'
+;; + `doom-variable-pitch-font'
+;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;;
+;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+;; font string. You generally only need these two:
+;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-gruvbox)
+#+end_src
+
+** REGISTERS
+Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.  The default GNU Emacs keybindings for these commands (with the exception of counsel-register) involves 'C-x r' followed by one or more other keys.  I wanted to make this a little more user friendly, and since I am using Doom Emacs, I choose to replace the 'C-x r' part of the key chords with 'SPC r'.
+
+| COMMAND                          | DESCRIPTION                      | KEYBINDING |
+|----------------------------------+----------------------------------+------------|
+| copy-to-register                 | /Copy to register/                 | SPC r c    |
+| frameset-to-register             | /Frameset to register/             | SPC r f    |
+| insert-register                  | /Insert contents of register/      | SPC r i    |
+| jump-to-register                 | /Jump to register/                 | SPC r j    |
+| list-registers                   | /List registers/                   | SPC r l    |
+| number-to-register               | /Number to register/               | SPC r n    |
+| counsel-register                 | /Interactively choose a register/  | SPC r r    |
+| view-register                    | /View a register/                  | SPC r v    |
+| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
+| increment-register               | /Increment register/               | SPC r +    |
+| point-to-register                | /Point to register/                | SPC r SPC  |
+
+#+BEGIN_SRC emacs-lisp
+(map! :leader
+      :desc "Copy to register"
+      "r c" #'copy-to-register
+      :leader
+      :desc "Frameset to register"
+      "r f" #'frameset-to-register
+      :leader
+      :desc "Insert contents of register"
+      "r i" #'insert-register
+      :leader
+      :desc "Jump to register"
+      "r j" #'jump-to-register
+      :leader
+      :desc "List registers"
+      "r l" #'list-registers
+      :leader
+      :desc "Number to register"
+      "r n" #'number-to-register
+      :leader
+      :desc "Interactively choose a register"
+      "r r" #'counsel-register
+      :leader
+      :desc "View a register"
+      "r v" #'view-register
+      :leader
+      :desc "Window configuration to register"
+      "r w" #'window-configuration-to-register
+      :leader
+      :desc "Increment register"
+      "r +" #'increment-register
+      :leader
+      :desc "Point to register"
+      "r SPC" #'point-to-register)
+#+END_SRC
+** Scape secuence
+#+begin_src emacs-lisp
+(setq-default evil-escape-key-sequence "df")
+
+#+end_src
+* SHORTCUTS
+** BOOKMARKS AND BUFFERS
 Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.  Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.
 
 #+BEGIN_SRC emacs-lisp
@@ -37,7 +146,7 @@ Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookm
       "b w" #'bookmark-save)
 #+END_SRC
 
-* CENTAUR-TABS
+** CENTAUR-TABS
 To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displays tabs at the top of the window similar to tabbed web browsers such as Firefox.  I don't actually use tabs in Emacs.  I placed this in my config to help others who may want tabs.  In the default configuration of Doom Emacs, 'SPC t' is used for "toggle" keybindings, so I choose 'SPC t c' to toggle centaur-tabs.  The "g" prefix for keybindings is used for a bunch of evil keybindings in Doom, but "g" plus the arrow keys were not used, so I thought I would bind those for tab navigation.  But I did leave the default "g t" and "g T" intact if you prefer to use those for centaur-tabs-forward/backward.
 
 | COMMAND                     | DESCRIPTION          | KEYBINDING       |
@@ -65,7 +174,7 @@ To use tabs in Doom Emacs, be sure to uncomment "tabs" in Doom's init.el.  Displ
                                                (kbd "g <up>")    'centaur-tabs-backward-group)
 #+END_SRC
 
-* DIRED
+** DIRED
 Dired is the file manager within Emacs.  Below, I setup keybindings for image previews (peep-dired).  Doom Emacs does not use 'SPC d' for any of its keybindings, so I've chosen the format of 'SPC d' plus 'key'.
 
 | COMMAND                                   | DESCRIPTION                                     | KEYBINDING |
@@ -114,7 +223,6 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
                               ("mp4" . "mpv")))
 #+END_SRC
 
-  
 * Personal data
 #+begin_src emacs-lisp
 
@@ -122,58 +230,7 @@ Dired is the file manager within Emacs.  Below, I setup keybindings for image pr
 ;; clients, file templates and snippets.
 (setq user-full-name "FT")
 #+end_src
-* Doom theme
-#+begin_src emacs-lisp
-
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
-#+end_src
-* Relative numbers
-#+begin_src emacs-lisp
-
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type `relative)
-#+end_src
-* RSS
-RSS reader
-#+begin_src emacs-lisp
-(custom-set-variables
- '(elfeed-feeds
-   (quote
-    (("https://www.reddit.com/r/linux.rss" reddit linux)
-     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
-     ("https://hackaday.com/blog/feed/" hackaday linux)
-     ("https://opensource.com/feed" opensource linux)
-     ("https://linux.softpedia.com/backend.xml" softpedia linux)
-     ("https://itsfoss.com/feed/" itsfoss linux)
-     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
-     ("https://www.phoronix.com/rss.php" phoronix linux)
-     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
-     ("https://www.computerworld.com/index.rss" computerworld linux)
-     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
-     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
-     ("https://betanews.com/feed" betanews linux)
-     ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
-     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
-#+end_src
-
-* Orgs files
+* ORG
 #+begin_src emacs-lisp
 
 ;; If you use `org' and don't want your org files in the default location below,
@@ -181,7 +238,6 @@ RSS reader
 (setq org-directory "/home/ginobvhc/Sync/Org/")
 ;;(setq initial-buffer-choice "~/Org/todo.org")
 #+end_src
-* Pr Files
 #+begin_src emacs-lisp
 
 (setq projectile-project-search-path '("/home/ginobvhc/programacion/01-projects/" "/home/ginobvhc/Sync/Org/"))
@@ -209,38 +265,17 @@ Settings for the various shells and terminal emulators within Emacs.
 
 #+end_src
 
+#+RESULTS:
+: counsel-esh-history
 
-* Default Browser
+* Default APP
+** Browser
 #+begin_src emacs-lisp
 (setq browse-url-browser-function 'browse-url-generic)
 (setq browse-url-generic-program "qutebrowser")
 #+end_src
-;; Here are some additional functions/macros that could help you configure Doom:
-;;
-;; - `load!' for loading external *.el files relative to this one
-;; - `use-package!' for configuring packages
-;; - `after!' for running code after a package has loaded
-;; - `add-load-path!' for adding directories to the `load-path', relative to
-;;   this file. Emacs searches the `load-path' when you load packages with
-;;   `require' or `use-package'.
-;; - `map!' for binding new keys
-;;
-;; To get information about any of these functions/macros, move the cursor over
-;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
-;; This will open documentation for it, including demos of how they are used.
-;;
-;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
-;; they are implemented.
-
-
-;; De Ginobvhc
-;; starts Org File
-* Scape secuence
-#+begin_src emacs-lisp
-(setq-default evil-escape-key-sequence "df")
-
-#+end_src
-* Mu4e
+* Mail N' Feed
+** Mu4e
 #+begin_src emacs-lisp
 
 (require 'mu4e)
@@ -338,31 +373,34 @@ Settings for the various shells and terminal emulators within Emacs.
         ("/ftodeschini/Inbox" . ?f)))
 #+end_src
 
-* exwm
+** RSS
+RSS reader
 #+begin_src emacs-lisp
-
+(custom-set-variables
+ '(elfeed-feeds
+   (quote
+    (("https://www.reddit.com/r/linux.rss" reddit linux)
+     ("https://www.gamingonlinux.com/article_rss.php" gaming linux)
+     ("https://hackaday.com/blog/feed/" hackaday linux)
+     ("https://opensource.com/feed" opensource linux)
+     ("https://linux.softpedia.com/backend.xml" softpedia linux)
+     ("https://itsfoss.com/feed/" itsfoss linux)
+     ("https://www.zdnet.com/topic/linux/rss.xml" zdnet linux)
+     ("https://www.phoronix.com/rss.php" phoronix linux)
+     ("http://feeds.feedburner.com/d0od" omgubuntu linux)
+     ("https://www.computerworld.com/index.rss" computerworld linux)
+     ("https://www.networkworld.com/category/linux/index.rss" networkworld linux)
+     ("https://www.techrepublic.com/rssfeeds/topic/open-source/" techrepublic linux)
+     ("https://betanews.com/feed" betanews linux)
+     ("http://lxer.com/module/newswire/headlines.rss" lxer linux)
+     ("https://distrowatch.com/news/dwd.xml" distrowatch linux)))))
 #+end_src
-;; exwm
-;;(require 'exwm)
-;;(require 'exwm-config)
-;;(setq exwm-input-global-keys
-      ;;`(([?\s-r] . exwm-reset)
-        ;;([?\s-w] . exwm-workspace-switch)
-        ;;,@(mapcar (lambda (i)
-          ;;          `(,(kbd (format "s-%d" i)) .
-            ;;          (lambda ()
-              ;;          (interactive)
-                ;;        (exwm-workspace-switch-create ,i))))
-;;                  (number-sequence 0 9))))
-;;(setq exwm-workspace-number 4)
-;;(require 'exwm-systemtray)
 
 * Autocomplete
 #+begin_src emacs-lisp
 (setq company-idle-delay 0.2
       company-minimum-prefix-length 3)
 #+end_src
-* autocompletion
 #+begin_src emacs-lisp
 (after! company
   (setq company-minimum-prefix-length 2
@@ -387,55 +425,3 @@ Settings for the various shells and terminal emulators within Emacs.
   (evil-define-key '(normal visual) evil-org-mode-map
     (kbd "TAB") 'org-cycle))
 #+end_src
-* REGISTERS
-Emacs registers are compartments where you can save text, rectangles and positions for later use. Once you save text or a rectangle in a register, you can copy it into the buffer once or many times; once you save a position in a register, you can jump back to that position once or many times.  The default GNU Emacs keybindings for these commands (with the exception of counsel-register) involves 'C-x r' followed by one or more other keys.  I wanted to make this a little more user friendly, and since I am using Doom Emacs, I choose to replace the 'C-x r' part of the key chords with 'SPC r'.
-
-| COMMAND                          | DESCRIPTION                      | KEYBINDING |
-|----------------------------------+----------------------------------+------------|
-| copy-to-register                 | /Copy to register/                 | SPC r c    |
-| frameset-to-register             | /Frameset to register/             | SPC r f    |
-| insert-register                  | /Insert contents of register/      | SPC r i    |
-| jump-to-register                 | /Jump to register/                 | SPC r j    |
-| list-registers                   | /List registers/                   | SPC r l    |
-| number-to-register               | /Number to register/               | SPC r n    |
-| counsel-register                 | /Interactively choose a register/  | SPC r r    |
-| view-register                    | /View a register/                  | SPC r v    |
-| window-configuration-to-register | /Window configuration to register/ | SPC r w    |
-| increment-register               | /Increment register/               | SPC r +    |
-| point-to-register                | /Point to register/                | SPC r SPC  |
-
-#+BEGIN_SRC emacs-lisp
-(map! :leader
-      :desc "Copy to register"
-      "r c" #'copy-to-register
-      :leader
-      :desc "Frameset to register"
-      "r f" #'frameset-to-register
-      :leader
-      :desc "Insert contents of register"
-      "r i" #'insert-register
-      :leader
-      :desc "Jump to register"
-      "r j" #'jump-to-register
-      :leader
-      :desc "List registers"
-      "r l" #'list-registers
-      :leader
-      :desc "Number to register"
-      "r n" #'number-to-register
-      :leader
-      :desc "Interactively choose a register"
-      "r r" #'counsel-register
-      :leader
-      :desc "View a register"
-      "r v" #'view-register
-      :leader
-      :desc "Window configuration to register"
-      "r w" #'window-configuration-to-register
-      :leader
-      :desc "Increment register"
-      "r +" #'increment-register
-      :leader
-      :desc "Point to register"
-      "r SPC" #'point-to-register)
-#+END_SRC
