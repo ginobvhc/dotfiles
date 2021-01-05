@@ -52,7 +52,7 @@ You can also try 'gd' (or 'C-c c d') to jump to their definition and see how the
 
 ;; This Determines The Style Of Line Numbers In Effect. If Set To `Nil', Line
 ;; Numbers Are Disabled. For Relative Line Numbers, Set This To `Relative'.
-(Setq Display-Line-Numbers-Type `Relative)
+(setq display-line-numbers-type 'relative)
 #+End_src
 ** Doom theme
 #+begin_src emacs-lisp
