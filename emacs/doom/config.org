@@ -417,6 +417,10 @@ RSS reader
         lsp-ui-doc-position 'at-point))
 
 #+end_src
+
+Para go tengo que instalar segun el link[[https://stackoverflow.com/questions/61998389/full-ide-features-support-for-golang-in-doom-emacs][Solucion gopls]]
+
+
 * Patches
 #+begin_src emacs-lisp
 ;; Patch up the evil-org key map, so that org is usable with daemon
