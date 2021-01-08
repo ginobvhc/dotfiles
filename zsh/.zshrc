@@ -195,3 +195,4 @@ alias mail_index="mu index"
 alias mail_clean="rm /home/ginobvhc/Maildir/trash/cur/*"
 
 alias zshrc="tail .zshrc"
+alias prog="cd ~/Sync/proyectos/programacion/"
