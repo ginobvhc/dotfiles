@@ -305,10 +305,9 @@ Settings for the various shells and terminal emulators within Emacs.
         ("/ginobvhc/Trash"      . ?t)))
 
 ;; Download dir
-#+begin_src emacs-lisp
+
 
 (setq mu4e-attachment-dir  "~/Downloads")
-#+end_src
 
 
 ;; ~/.doom.d/config.el
