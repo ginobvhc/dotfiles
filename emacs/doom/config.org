@@ -433,13 +433,18 @@ Para go tengo que instalar segun el link
 Setting projects folders
 
 To open project SPC p p
-
 To open treemacs SPC o p
+|                  |   | Command |
+|------------------+---+---------|
+| Open Projectile  |   | SPC p p |
+| Open treemacs    |   | SPC o p |
+| Open Shell       |   | SPC o e |
+| Open small Shell |   | SPC o E |
+
 
 #+begin_src emacs-lisp
 (setq projectile-project-search-path '("~/Sync/proyectos/programacion/01-projects/"))
 #+end_src
-
 
 * Patches
 #+begin_src emacs-lisp
