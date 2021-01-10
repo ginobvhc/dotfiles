@@ -25,6 +25,7 @@
   - [[#rss][RSS]]
 - [[#autocomplete][Autocomplete]]
 - [[#lsp][lsp]]
+- [[#projectile][Projectile]]
 - [[#patches][Patches]]
 
 * DOOM intro
@@ -427,6 +428,12 @@ RSS reader
 
 Para go tengo que instalar segun el link[[https://stackoverflow.com/questions/61998389/full-ide-features-support-for-golang-in-doom-emacs][Solucion gopls]]
 
+* Projectile
+Setting projects folders
+
+#+begin_src emacs-lisp
+(setq projectile-project-search-path '("~/Sync/proyectos/programacion/01-projects/"))
+#+end_src
 
 * Patches
 #+begin_src emacs-lisp
