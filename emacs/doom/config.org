@@ -426,14 +426,22 @@ RSS reader
 
 #+end_src
 
-Para go tengo que instalar segun el link[[https://stackoverflow.com/questions/61998389/full-ide-features-support-for-golang-in-doom-emacs][Solucion gopls]]
+Para go tengo que instalar segun el link
+[[https://stackoverflow.com/questions/61998389/full-ide-features-support-for-golang-in-doom-emacs][Solucion gopls]]
 
 * Projectile
 Setting projects folders
 
+To open project SPC p p
+
+To open treemacs SPC o p
+
 #+begin_src emacs-lisp
 (setq projectile-project-search-path '("~/Sync/proyectos/programacion/01-projects/"))
 #+end_src
+
+#+RESULTS:
+| ~/Sync/proyectos/programacion/01-projects/ |
 
 * Patches
 #+begin_src emacs-lisp
