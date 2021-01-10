@@ -440,8 +440,6 @@ To open treemacs SPC o p
 (setq projectile-project-search-path '("~/Sync/proyectos/programacion/01-projects/"))
 #+end_src
 
-#+RESULTS:
-| ~/Sync/proyectos/programacion/01-projects/ |
 
 * Patches
 #+begin_src emacs-lisp
