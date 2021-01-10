@@ -434,12 +434,14 @@ Setting projects folders
 
 To open project SPC p p
 To open treemacs SPC o p
-|                  |   | Command |
-|------------------+---+---------|
-| Open Projectile  |   | SPC p p |
-| Open treemacs    |   | SPC o p |
-| Open Shell       |   | SPC o e |
-| Open small Shell |   | SPC o E |
+|                           |   | Command |
+|---------------------------+---+---------|
+| Open Projectile           |   | SPC p p |
+| Open treemacs             |   | SPC o p |
+| Open Shell                |   | SPC o e |
+| Open small Shell          |   | SPC o E |
+| Open Recent               |   | SPC f r |
+| Open Recent viseted files |   | SPC f R |
 
 
 #+begin_src emacs-lisp
