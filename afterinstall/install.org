@@ -1,0 +1,22 @@
+#+TITLE: Install
+
+ yay qutebrowser
+   83  yay xclip
+   85  yay nvim
+   96  yay mu4e
+   97  yay -Syyu
+   98  yay nvim
+   99  yay -S nvim
+  100  yay -S neovim
+  101  yay -Su
+
+ yay qutebrowser
+   83  yay xclip
+   85  yay nvim
+   96  yay mu4e
+   97  yay -Syyu
+   98  yay nvim
+   99  yay -S nvim
+  100  yay -S neovim
+  101  yay -Su
+  ``
