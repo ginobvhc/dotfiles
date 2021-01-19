@@ -11,6 +11,7 @@
   - [[#doom-theme][Doom theme]]
   - [[#registers][REGISTERS]]
   - [[#scape-secuence][Scape secuence]]
+- [[#ath10k-para-redmibook][ATH10k para redmibook]]
 - [[#shortcuts][SHORTCUTS]]
   - [[#bookmarks-and-buffers][BOOKMARKS AND BUFFERS]]
   - [[#centaur-tabs][CENTAUR-TABS]]
@@ -134,6 +135,77 @@ Emacs registers are compartments where you can save text, rectangles and positio
 (setq-default evil-escape-key-sequence "df")
 
 #+end_src
+
+* ATH10k para redmibook
+
+Please se the following guide
+
+[[https://github.com/dmhacker/arch-linux-surface/issues/62][Link]]
+
+
+I played around with some of the alternative firmwares floating around on my Surface Go. Here's a brief info dump in case it's useful for someone.
+Symptoms
+
+With the default firmware provided by linux-firmware, kernel logs (in e.g. dmesg or journalctl -b -k) will show:
+
+ath10k_pci 0000:01:00.0: failed to fetch board data for bus=pci,vendor=168c,device=003e,subsystem-vendor=168c,subsystem-device=3370 from ath10k/QCA6174/hw3.0/board-2.bin
+ath10k_pci 0000:01:00.0: board_file api 1 bmi_id N/A crc32 ed5f849a
+ath10k_pci 0000:01:00.0: htt version request timed out
+ath10k_pci 0000:01:00.0: failed to setup htt: -110
+ath10k_pci 0000:01:00.0: could not init core (-110)
+ath10k_pci 0000:01:00.0: could not probe fw (-110)
+
+In this case, you will not see a network interface at all, so e.g. ip link will show only lo as being present.
+
+Or with some different, still incorrect, firmware:
+
+ath10k_pci 0000:01:00.0: failed to fetch board data for bus=pci,vendor=168c,device=003e,subsystem-vendor=168c,subsystem-device=3370 from ath10k/QCA6174/hw3.0/board-2.bin
+ath10k_pci 0000:01:00.0: board_file api 1 bmi_id N/A crc32 ed5f849a
+ath10k_pci 0000:01:00.0: unsupported HTC service id: 1536
+ath10k_pci 0000:01:00.0: failed to ping firmware: -110
+ath10k_pci 0000:01:00.0: failed to reset rx filter: -110
+ath10k_pci 0000:01:00.0: could not init core (-110)
+ath10k_pci 0000:01:00.0: could not probe fw (-110)
+
+In this case, you will see a network interface, but it will be persistently down and trying to ip link set wlp4s0 up will lead to the error RTNETLINK answers: Connection timed out and more "failed to ping firmware" etc. in the kernel log.
+
+There are probably other failure states depending on just which combination of firmware files you try. The above are just a few examples of messages you might see.
+
+With the working firmware you should instead see this:
+
+ath10k_pci 0000:01:00.0: qca6174 hw3.2 target 0x05030000 chip_id 0x00340aff sub 168c:3370
+ath10k_pci 0000:01:00.0: kconfig debug 1 debugfs 1 tracing 1 dfs 0 testmode 0
+ath10k_pci 0000:01:00.0: firmware ver RM.4.4.1.c2-00057-QCARMSWP-1 api 6 features wowlan,ignore-otp,no-4addr-pad,raw-mode crc32 e061250a
+ath10k_pci 0000:01:00.0: found invalid board magic
+ath10k_pci 0000:01:00.0: board_file api 1 bmi_id N/A crc32 c8f42334
+ath10k_pci 0000:01:00.0: htt-ver 3.56 wmi-op 4 htt-op 3 cal otp max-sta 32 raw 0 hwcrypto 1
+
+And have a working network interface. (Despite the "invalid board magic" complaint.)
+Firmware alternatives
+
+The firmware files are in /usr/lib/firmware/ath10k/QCA6174/hw3.0/. Both board.bin and board-2.bin need to be changed. firmware-4.bin and firmware-6.bin are fine as they are and don't affect behaviour in any noticeable way.
+
+The firmware provided by linux-firmware doesn't work. (It seems like board-2.bin is loaded first and is more important, so I'll use it as a reference file.)
+
+    fails: linux-firmware-20190717.bf13a71-1 whose board-2.bin has file size 567608 and SHA256 19b7e0849d8beec4144efcf694f0a5752a97ba48931f8155ca23eb4cca0bcf4f
+    fails: linux-firmware-20200316.8eb0b28-1 whose board-2.bin has file size 584036 and SHA256 2ca3db3303e30ea8a4c2fc0decb865b3600ea622d75d177df65b891873f23b3e
+
+The firmware provided in https://github.com/jakeday/linux-surface does work, both the older and the newer version:
+
+    works: https://github.com/jakeday/linux-surface/blob/a25ec543b6c93d2cff5517f59fec445f959773a0/firmware/ath10k_firmware.zip whose board-2.bin has file size 8124 and SHA256 e79b80e2243c62f41fbaf1cc92845cefb11019b0a6d1c91488cf43fd63dcf85c
+    works: https://github.com/jakeday/linux-surface/blob/a77e9504b1ecac9201a1d9dca064111335a19fa8/firmware/ath10k_firmware.zip whose board-2.bin has file size 8124 and SHA256 a6792268ebfd779405f73a81d14667593b6cb1c4287937b72547361a146a145e
+
+The aforementioned (older) one is the same the one you can get from https://support.killernetworking.com/K1535_Debian/board.bin. I didn't need to set the skip_otp option like they suggest, it works fine for me with the default options. It also works whether you remove board-2.bin (as in Killer's instructions) or make it a duplicate of board.bin (as in https://github.com/jakeday/linux-surface).
+
+I noticed that in the working setup, board.bin has the exact same byte size as the board.bin provided by linux-firmware. So I tried also using that, either replacing both files with it or keeping it as board.bin and removing board-2.bin. But that did not work either. So here's another failing one:
+
+    fails: Using only board.bin as provided in linux-firmware, file size 8124, SHA256 1a8d225818b46986fc4f615594fbe448fa820618590d6902c8f844bb37cda667
+
+I don't know where all of these alternative firmwares are from, or whether they are useful for some other device with the Qualcomm Atheros QCA6174. All I can say is that only the ones provided by jakeday / Killer work on the Surface Go.
+My recommendation
+
+Since jakeday provides seemingly the newest firmware, I suggest going with that. So grab https://github.com/jakeday/linux-surface/blob/a77e9504b1ecac9201a1d9dca064111335a19fa8/firmware/ath10k_firmware.zip and overwrite both board.bin and board-2.bin in /usr/lib/firmware/ath10k/QCA6174/hw3.0/ with the corresponding binaries in the zip file. This setup works just fine on my Surface Go.
+
 * SHORTCUTS
 ** BOOKMARKS AND BUFFERS
 Doom Emacs uses 'SPC b' for keybindings related to bookmarks and buffers.  Bookmarks are somewhat like registers in that they record positions you can jump to.  Unlike registers, they have long names, and they persist automatically from one Emacs session to the next. The prototypical use of bookmarks is to record where you were reading in various files.  Regarding /buffers/, the text you are editing in Emacs resides in an object called a /buffer/. Each time you visit a file, a buffer is used to hold the file’s text. Each time you invoke Dired, a buffer is used to hold the directory listing.
