@@ -1,15 +1,26 @@
 #+TITLE: Install
 
 * First Step
-#+begin_src bash
+#+begin_src shell
 
  yay -Syyu &&
  yay -S qutebrowser
   xclip mu4e neovim xclip mu4e nvim zip syncthing ufw gufw libinput-gestures gestures xdotool
 #+end_src
+
 *  ath10k
 #+begin_src bash
 
 sudo cp $HOME/Descargas/QCA6174/hw3.0/board* /lib/firmware/ath10k/QCA6174/hw3.0/
+
+#+end_src
+
+* gestures
+
+#+begin_src shell
+sudo gpasswd -a $USER input
+libinput-gestures start
+libinput-gestures autostart
+
 
 #+end_src
