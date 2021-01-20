@@ -1,22 +1,31 @@
 #+TITLE: Install
 
- yay qutebrowser
-   83  yay xclip
-   85  yay nvim
-   96  yay mu4e
-   97  yay -Syyu
-   98  yay nvim
-   99  yay -S nvim
-  100  yay -S neovim
-  101  yay -Su
+* First Step
+#+begin_src bash
 
  yay qutebrowser
-   83  yay xclip
-   85  yay nvim
-   96  yay mu4e
-   97  yay -Syyu
-   98  yay nvim
-   99  yay -S nvim
-  100  yay -S neovim
-  101  yay -Su
-  ``
+ yay xclip
+ yay nvim
+ yay mu4e
+ yay -Syyu
+ yay nvim
+ yay -S nvim
+ yay -S neovim
+ yay -Su
+
+ yay xclip
+ yay nvim
+ yay mu4e
+ yay -Syyu
+ yay nvim
+ yay -S nvim
+ yay -S neovim
+ yay -Su
+ yay -S zip
+#+end_src
+*  ath10k
+#+begin_src bash
+
+sudo cp $HOME/Descargas/QCA6174/hw3.0/board* /lib/firmware/ath10k/QCA6174/hw3.0/
+
+#+end_src
