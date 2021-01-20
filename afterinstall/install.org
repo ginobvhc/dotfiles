@@ -3,25 +3,17 @@
 * First Step
 #+begin_src bash
 
- yay qutebrowser
- yay xclip
- yay nvim
- yay mu4e
  yay -Syyu
- yay nvim
- yay -S nvim
+ yay -S qutebrowser
+ yay -S xclip
+ yay -S mu4e
  yay -S neovim
- yay -Su
-
  yay xclip
- yay nvim
  yay mu4e
- yay -Syyu
- yay nvim
  yay -S nvim
- yay -S neovim
- yay -Su
  yay -S zip
+ yay -S syncthing
+ yay -S ufw gufw
 #+end_src
 *  ath10k
 #+begin_src bash
