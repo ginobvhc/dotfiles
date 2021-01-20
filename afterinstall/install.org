@@ -3,17 +3,9 @@
 * First Step
 #+begin_src bash
 
- yay -Syyu
+ yay -Syyu &&
  yay -S qutebrowser
- yay -S xclip
- yay -S mu4e
- yay -S neovim
- yay xclip
- yay mu4e
- yay -S nvim
- yay -S zip
- yay -S syncthing
- yay -S ufw gufw
+  xclip mu4e neovim xclip mu4e nvim zip syncthing ufw gufw libinput-gestures gestures xdotool
 #+end_src
 *  ath10k
 #+begin_src bash
