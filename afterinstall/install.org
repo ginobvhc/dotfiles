@@ -25,3 +25,11 @@ yay -S wmctrl
 
 
 #+end_src
+
+* p10k powerline
+#+begin_src shell
+
+yay -S --noconfirm zsh-theme-powerlevel10k-git
+echo 'source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+#+end_src
