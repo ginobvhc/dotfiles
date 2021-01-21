@@ -21,6 +21,7 @@ sudo cp $HOME/Descargas/QCA6174/hw3.0/board* /lib/firmware/ath10k/QCA6174/hw3.0/
 sudo gpasswd -a $USER input
 libinput-gestures start
 libinput-gestures autostart
+yay -S wmctrl
 
 
 #+end_src
