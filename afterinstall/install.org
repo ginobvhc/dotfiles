@@ -5,7 +5,7 @@
 
  yay -Syyu &&
  yay -S qutebrowser
-  xclip mu4e neovim xclip mu4e nvim zip syncthing ufw gufw libinput-gestures gestures xdotool
+  xclip mu4e neovim xclip mu4e nvim zip syncthing ufw gufw libinput-gestures gestures xdotool gopls
 #+end_src
 
 *  ath10k
