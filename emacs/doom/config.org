@@ -360,7 +360,7 @@ Settings for the various shells and terminal emulators within Emacs.
       ;; mbsyncrc available publicly in my dotfiles. You MUST edit the following line.
       ;; Be sure that the following command is: "mbsync -c ~/.config/mu4e/mbsyncrc -a"
       ;;mu4e-get-mail-command "mbsync -c ~/.config/mu4e-dt/mbsyncrc -a"
-      mu4e-get-mail-command "mbsync -a"
+      mu4e-get-mail-command "mbsync -c ~/.config/mu4e/.mbsyncrc -a"
       mu4e-update-interval  300
       mu4e-main-buffer-hide-personal-addresses t
 
