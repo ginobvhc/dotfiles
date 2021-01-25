@@ -360,7 +360,7 @@ Settings for the various shells and terminal emulators within Emacs.
       ;; mbsyncrc available publicly in my dotfiles. You MUST edit the following line.
       ;; Be sure that the following command is: "mbsync -c ~/.config/mu4e/mbsyncrc -a"
       ;;mu4e-get-mail-command "mbsync -c ~/.config/mu4e-dt/mbsyncrc -a"
-      mu4e-get-mail-command "mbsync -c ~/.config/mu4e/.mbsyncrc -a"
+      mu4e-get-mail-command "mbsync -c ~/.config/mu4e/.mbsyncrc -aV"
       mu4e-update-interval  300
       mu4e-main-buffer-hide-personal-addresses t
 
@@ -371,16 +371,17 @@ Settings for the various shells and terminal emulators within Emacs.
       mu4e-sent-folder "/ginobvhc/Sent"
       mu4e-drafts-folder "/ginobvhc/Drafts"
       mu4e-trash-folder "/ginobvhc/Trash"
-      mu4e-maildir-shortcuts
-      '(("/ginobvhc/Inbox"      . ?i)
-        ("/ginobvhc/Sent Items" . ?s)
-        ("/ginobvhc/Drafts"     . ?d)
-        ("/ginobvhc/Trash"      . ?t)))
-
+      mu4e-maildir "/home/ginobvhc/Maildir"
+      ;;      mu4e-maildir-shortcuts
+      ;;      '(("/ginobvhc/Inbox"      . ?i)
+      ;;        ("/ginobvhc/Sent Items" . ?s)
+      ;;       ("/ginobvhc/Drafts"     . ?d)
+      ;;       ("/ginobvhc/Trash"      . ?t)))
+      )
 ;; Download dir
 
 
-(setq mu4e-attachment-dir  "~/Downloads")
+(setq mu4e-attachment-dir  "~/Descargas")
 
 
 ;; ~/.doom.d/config.el

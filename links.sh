@@ -10,3 +10,4 @@ ln -sf ~/dotfiles/mu4e/.mbsync ~/.config/mu4e/.mbsync
 ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
 
 ln -sf ~/dotfiles/zsh/aliases ~/.doom.d/aliases
+ln -sf ~/dotfiles/mu4e/.msmtprc ~/.config/mu4e/.msmtprc    
