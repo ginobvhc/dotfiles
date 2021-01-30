@@ -368,19 +368,42 @@ Settings for the various shells and terminal emulators within Emacs.
       message-send-mail-function 'message-send-mail-with-sendmail
       sendmail-program "/usr/bin/msmtp"
 
-      mu4e-sent-folder "/ginobvhc/Sent"
-      mu4e-drafts-folder "/ginobvhc/Drafts"
-      mu4e-trash-folder "/ginobvhc/Trash"
-      mu4e-maildir "/home/ginobvhc/Maildir"
-      ;;      mu4e-maildir-shortcuts
-      ;;      '(("/ginobvhc/Inbox"      . ?i)
-      ;;        ("/ginobvhc/Sent Items" . ?s)
-      ;;       ("/ginobvhc/Drafts"     . ?d)
-      ;;       ("/ginobvhc/Trash"      . ?t)))
-      )
+      ;;mu4e-sent-folder "/ginobvhc/Sent"
+      ;;mu4e-drafts-folder "/ginobvhc/Drafts"
+      ;;mu4e-trash-folder "/ginobvhc/Trash"
+      mu4e-maildir "/home/ginobvhc/Maildir")
+;;mu4e-maildir-shortcuts
+;;'(("/ginobvhc/Inbox"      . ?i)
+;;("/ginobvhc/Sent Items" . ?s)
+;;("/ginobvhc/Drafts"     . ?d)
+;;("/ginobvhc/Trash"      . ?t)))
+
+;; (defun my-mu4e-set-account ()
+;;   "Set the account for composing a message."
+;;   (let* ((account
+;;           (if mu4e-compose-parent-message
+;;               (let ((maildir (mu4e-message-field mu4e-compose-parent-message :maildir)))
+;;                 (string-match "/\\(.*?\\)/" maildir)
+;;                 (match-string 1 maildir))
+;;             (completing-read (format "Compose with account: (%s) "
+;;                                      (mapconcat #'(lambda (var) (car var))
+;;                                                 my-mu4e-account-alist "/"))
+;;                              (mapcar #'(lambda (var) (car var)) my-mu4e-account-alist)
+;;                              nil t nil nil (caar my-mu4e-account-alist))))
+;;          (account-vars (cdr (assoc account my-mu4e-account-alist))))
+;;     (if account-vars
+;;         (mapc #'(lambda (var)
+;;                   (set (car var) (cadr var)))
+;;               account-vars)
+;;       (error "No email account found"))))
+;;
+;; (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
+
+
+
+
+
 ;; Download dir
-
-
 (setq mu4e-attachment-dir  "~/Descargas")
 
 
@@ -453,6 +476,9 @@ Settings for the various shells and terminal emulators within Emacs.
       '(("/ginobvhc/Inbox" . ?g)
         ("/ftodeschini/Inbox" . ?f)))
 #+end_src
+
+#+RESULTS:
+: ((/ginobvhc/Inbox . 103) (/ftodeschini/Inbox . 102))
 
 ** RSS
 RSS reader
