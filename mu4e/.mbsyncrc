@@ -29,7 +29,7 @@ MaildirStore ginobvhc-local
 Path ~/Maildir/ginobvhc/
 Inbox ~/Maildir/ginobvhc/INBOX
 # REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
-# SubFolders Verbatim
+SubFolders Verbatim
 
 # CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
 #
